@@ -1,0 +1,4 @@
+Add the following in: nano /var/www/chatbot/.env
+VULTR_API_KEY=TNMNE6HPBJEZ52GV2UNDAOIZLDYUW5HSPJWA
+
+

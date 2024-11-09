@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with EcoBot</title>
+</head>
+<body>
+    <h1>EcoBot Chat Interface</h1>
+    <input type="text" id="userMessage" placeholder="Type your message here...">
+    <button onclick="sendMessage()">Send</button>
+    <div id="chatbox"></div>
+
+    <script>
+        async function sendMessage() {
+            const message = document.getElementById('userMessage').value;
+
+            const response = await fetch('/chatbot', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: message })
+            });
+
+            const data = await response.json();
+            document.getElementById('chatbox').innerHTML += `<p><strong>You:</strong> ${message}</p>`;
+            document.getElementById('chatbox').innerHTML += `<p><strong>EcoBot:</strong> ${data.reply}</p>`;
+  }
+    </script>
+</body>
+</html>
