@@ -1,0 +1,115 @@
+
+
+console.log("Okay dashboard.js");
+
+// Chart data initialization
+const charDataElement = document.getElementById('chartData');
+let labels = [], energyData = [], transportData = [], wasteData = [];
+
+if (charDataElement) {
+    try {
+        let chartData = JSON.parse(charDataElement.textContent);
+        labels = chartData.labels || [];
+        energyData = chartData.energyData || [];
+        transportData = chartData.transportData || [];
+        wasteData = chartData.wasteData || [];
+    } catch (error) {
+        console.error('Error parsing JSON data:', error);
+    }
+}
+
+// Initialize the Chart.js chart
+const ctx = document.getElementById('emissionsChart').getContext('2d');
+let emissionsChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [
+            { label: 'Energy Usage (kWh)', data: energyData, backgroundColor: 'rgba(75, 192, 192, 0.6)' },
+            { label: 'Transportation (km)', data: transportData, backgroundColor: 'rgba(255, 206, 86, 0.6)' },
+            { label: 'Waste (kg)', data: wasteData, backgroundColor: 'rgba(255, 99, 132, 0.6)' }
+        ]
+    },
+    options: { responsive: true, plugins: { legend: { position: 'top' } } }
+});
+
+// Function to generate recommendations
+function generateRecommendation(energy, transport, waste) {
+    let message = "";
+
+    if (energy > 200) message += "Reduce energy consumption by 15% to cut emissions by 25%. ";
+    if (transport > 100) message += "Carpool or use public transport to reduce emissions by 30%. ";
+    if (waste > 50) message += "Recycle to reduce waste by 40%. ";
+
+    return message || "Great job! Keep maintaining your eco-friendly lifestyle!";
+}
+
+// Display recommendations on dashboard load
+document.addEventListener("DOMContentLoaded", function () {
+    const latestEnergy = energyData[energyData.length - 1] || 0;
+    const latestTransport = transportData[transportData.length - 1] || 0;
+    const latestWaste = wasteData[wasteData.length - 1] || 0;
+
+    const recommendation = generateRecommendation(latestEnergy, latestTransport, latestWaste);
+    document.getElementById('recommendationMessage').textContent = recommendation;
+});
+
+// AJAX submission function for adding new details
+function submitDetails() {
+    const energy = document.getElementById('energy_usage').value;
+    const transport = document.getElementById('transportation').value;
+    const waste = document.getElementById('waste').value;
+
+    fetch('/add_details', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ energy_usage: energy, transportation: transport, waste: waste })
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Network response was not ok: ' + response.statusText);
+        return response.json();
+    })
+    .then(data => {
+        console.log(data.message);
+        labels.push(new Date().toLocaleString());
+        energyData.push(parseFloat(energy));
+        transportData.push(parseFloat(transport));
+        wasteData.push(parseFloat(waste));
+        emissionsChart.update();
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+//
+
+SQL Tables:
+
+CREATE DATABASE ecotrack;
+USE ecotrack;
+
+CREATE TABLE emissions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    energy_usage FLOAT,
+    transportation FLOAT,
+    waste FLOAT,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE USER 'flaskuser'@'localhost' IDENTIFIED BY 'password123';
+GRANT ALL PRIVILEGES ON ecotrack.* TO 'flaskuser'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+
+
+USE ecotrack;
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+);
+
+ALTER TABLE emissions ADD COLUMN user_id INT;
+
+//
+

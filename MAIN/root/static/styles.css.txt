@@ -1,0 +1,339 @@
+
+
+/* General Styles for All Pages */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #74b9ff, #a29bfe);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Header Section */
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 1em;
+    text-align: center;
+    font-size: 24px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logout-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    margin-right: 15px;
+}
+
+.logout-btn:hover {
+    background-color: #c0392b;
+}
+
+/* General Button Styling */
+button {
+    background-color: #FF5722;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #E64A19;
+}
+
+/* Home Page Styles */
+.home-container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.home-container h1 {
+    color: #2d3436;
+}
+
+.home-container p {
+    color: #636e72;
+    margin-bottom: 20px;
+}
+
+.buttons button {
+    background-color: #0984e3;
+}
+
+.buttons button:hover {
+    background-color: #74b9ff;
+}
+
+/* Login and Signup Form Styles */
+.auth-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 90%;
+}
+
+.auth-container input {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.auth-container button {
+    background-color: #00b894;
+}
+
+.auth-container button:hover {
+    background-color: #55efc4;
+}
+
+.auth-container a {
+    color: #0984e3;
+    text-decoration: none;
+}
+
+.auth-container a:hover {
+    text-decoration: underline;
+}
+
+/* Summary Section for Dashboard */
+.summary {
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    width: 80%;
+    border-radius: 10px;
+}
+
+/* Chart Container for Dashboard */
+.chart-container {
+    width: 80%;
+    margin: 20px auto;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+canvas {
+    background-color: white;
+    border-radius: 10px;
+}
+
+/* Recommendations Section */
+.recommendations {
+    background-color: #ffeaa7;
+    padding: 15px;
+    margin: 20px auto;
+    width: 80%;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.recommendations h2 {
+    margin-bottom: 10px;
+    color: #2d3436;
+}
+
+.recommendations p {
+    font-size: 18px;
+    color: #d63031;
+}
+
+/* Chatbot Button Styling */
+.chatbot-button {
+    text-align: center;
+    margin: 20px;
+}
+
+.chatbot-btn {
+    background-color: #6c5ce7;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.chatbot-btn:hover {
+    background-color: #5a4bbf;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .home-container, .auth-container, .summary, .chart-container, .recommendations {
+        width: 90%;
+    }
+
+    input {
+        width: 100%;
+    }
+}
+
+/* Login Page Enhancements */
+.auth-container {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: auto;
+    text-align: center;
+}
+
+.title {
+    color: #4CAF50;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.submit-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 0;
+    width: 100%;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #45a049;
+}
+
+.redirect-text {
+    margin-top: 15px;
+    color: #555;
+    font-size: 14px;
+}
+
+.link {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+/* Enhanced Home Page Styles */
+.home-container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 50px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    margin: auto;
+}
+
+.home-header h1 {
+    color: #2d3436;
+    font-size: 2.5em;
+}
+
+.home-header p {
+    color: #636e72;
+    font-size: 1.2em;
+    margin-top: 10px;
+}
+
+.quote-section {
+    margin-top: 20px;
+    padding: 15px 20px;
+    background: #74b9ff;
+    color: #fff;
+    font-style: italic;
+    font-size: 1.1em;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.quote {
+    margin: 0;
+}
+
+.highlight {
+    color: #00b894;
+}
+
+.buttons {
+    margin-top: 30px;
+}
+
+.home-button {
+    background-color: #00b894;
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.home-button:hover {
+    background-color: #55efc4;
+}
+
+.home-button.secondary {
+    background-color: #0984e3;
+}
+
+.home-button.secondary:hover {
+    background-color: #74b9ff;
+}
+
+.home-footer {
+    margin-top: 30px;
+    font-size: 0.9em;
+    color: #636e72;
+}
+
+.footer-text {
+    font-weight: bold;
+}
