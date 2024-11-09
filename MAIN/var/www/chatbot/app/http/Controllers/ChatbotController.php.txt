@@ -1,0 +1,49 @@
+
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+
+class ChatbotController extends Controller
+{
+    public function query(Request $request)
+    {
+        $message = $request->input('message');
+
+        $systemMessage = "[INST] <<SYS>> Respond concisely and factually. Avoid philosophical answers unless asked. <</>
+
+        // Add [INST] and [/INST] tokens with spaces around the user message
+        $formattedMessage = "[INST] " . $message . " [/INST]";
+
+        // Send request to Vultr Inference API
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer  TNMNE6HPBJEZ52GV2UNDAOIZLDYUW5HSPJWA',
+        ])->post('https://api.vultrinference.com/v1/chat/completions', [
+            'model' => 'llama2-7b-chat-Q5_K_M',  // Confirm your model ID
+            'messages' => [
+                                [
+                    'role' => 'system',
+                    'content' => $systemMessage
+                ],
+
+                [
+                    'role' => 'user',
+                    'content' => $formattedMessage
+                ]
+            ],
+            'max_tokens' => 500,
+            'temperature' => 0.2,
+            'top_k' => 20,
+            'top_p' => 0.7,
+            'stream' => false
+        ])->json();
+
+        return response()->json([
+            'reply' => $response['choices'][0]['message']['content'] ?? "I'm here to help, but I couldn't process that message."]);
+    }
+}
+
+
