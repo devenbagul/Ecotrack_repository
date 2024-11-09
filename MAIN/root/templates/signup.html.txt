@@ -1,0 +1,23 @@
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoTrack | Sign Up</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="auth-container">
+        <h2 class="title">Join EcoTrack Today!</h2>
+        <p class="subtitle">Create an account to start tracking your eco impact</p>
+        <form method="POST" action="{{ url_for('signup') }}">
+            <input type="text" name="username" placeholder="Username" required class="input-field"><br>
+            <input type="password" name="password" placeholder="Password" required class="input-field"><br>
+            <button type="submit" class="submit-button">Sign Up</button>
+        </form>
+        <p class="redirect-text">Already have an account? <a href="{{ url_for('login') }}" class="link">Log In</a></p>
+    </div>
+</body>
+</html>

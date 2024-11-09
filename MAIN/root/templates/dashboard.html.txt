@@ -1,0 +1,206 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <!-- Embedded CSS -->
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+        }
+
+        /* Header Styling */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #4CAF50;
+            color: #fff;
+        }
+
+        .header h1 {
+            font-size: 1.5em;
+        }
+
+        .logout-btn {
+            background-color: #ff5252;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background-color: #ff0000;
+        }
+        /* Section Styling */
+        section {
+            padding: 20px;
+            margin: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Summary Insights Styling */
+        .summary h2, .data-entry h2, .chart-container h2, .recommendations h2 {
+            margin-bottom: 10px;
+            font-size: 1.4em;
+            color: #333;
+        }
+
+        .insights p {
+            margin: 10px 0;
+            font-size: 1em;
+            color: #555;
+        }
+
+        /* Data Entry Form Styling */
+        .data-entry label {
+            display: block;
+            margin: 10px 0 5px;
+            font-size: 0.9em;
+            color: #333;
+        }
+
+        .data-entry input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .submit-btn {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+
+
+        /* Chart Container */
+        .chart-container {
+            text-align: center;
+        }
+
+        /* Recommendations Section */
+        .recommendations p {
+            font-size: 1em;
+            color: #555;
+        }
+
+        /* Chatbot Button Styling */
+        .chatbot-button {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .chatbot-btn {
+            background-color: #2196F3;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .chatbot-btn:hover {
+            background-color: #0b7dda;
+        }
+    </style>
+
+    <!-- Load Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <h1>Welcome, {{ current_user.username }}!</h1>
+        <button class="logout-btn" onclick="location.href='{{ url_for('logout') }}'">Logout</button>
+    </header>
+
+    <!-- Summary Insights Section -->
+    <section class="summary">
+        <h2>Summary Insights</h2>
+        <div class="insights">
+            <p><strong>Total Energy Usage:</strong> {{ data | sum(attribute=1) }} kWh</p>
+            <p><strong>Total Transportation:</strong> {{ data | sum(attribute=2) }} km</p>
+            <p><strong>Total Waste:</strong> {{ data | sum(attribute=3) }} kg</p>
+        </div>
+    </section>
+    <!-- Data Entry Form Section -->
+    <section class="data-entry">
+        <h2>Add Your Details</h2>
+        <form id="dataForm">
+            <label>Energy Usage (kWh):</label>
+            <input type="number" id="energy_usage" required>
+
+            <label>Transportation (km):</label>
+            <input type="number" id="transportation" required>
+
+            <label>Waste (kg):</label>
+            <input type="number" id="waste" required>
+
+            <button type="button" class="submit-btn" onclick="submitDetails()">Add Details</button>
+        </form>
+    </section>
+
+    <!-- Emissions Chart Section -->
+    <section class="chart-container">
+        <h2>Your Emissions Overview</h2>
+        <canvas id="emissionsChart"></canvas>
+    </section>
+
+    <!-- Recommendations Section -->
+    <section class="recommendations">
+        <h2>Personalized Insights</h2>
+        <p id="recommendationMessage"></p>
+    </section>
+
+    <!-- Chatbot Button Section -->
+    <div class="chatbot-button">
+        <button class="chatbot-btn" onclick="window.open('http://65.20.89.64:8000/chatbot', '_blank')">
+            Chat with EcoBot
+        </button>
+    </div>
+
+    <!-- JSON Data for the Chart -->
+    <script id="chartData" type="application/json">
+    {
+        "labels": {{ data | map(attribute=4) | list | tojson | safe }},
+        "energyData": {{ data | map(attribute=1) | list | tojson | safe }},
+        "transportData": {{ data | map(attribute=2) | list | tojson | safe }},
+        "wasteData": {{ data | map(attribute=3) | list | tojson | safe }}
+    }
+    </script>
+
+    <!-- Load dashboard.js -->
+    <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+</body>
+</html>

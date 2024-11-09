@@ -1,0 +1,33 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoTrack | Home</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="home-container">
+        <header class="home-header">
+            <h1>Welcome to <span class="highlight">EcoTrack</span></h1>
+            <p>Your journey to a greener planet starts here.</p>
+        </header>
+
+        <div class="quote-section">
+     <p class="quote">"The greatest threat to our planet is the belief that someone else will save it." — Robert Swan</p>        </div>
+
+        <div class="buttons">
+            <button class="home-button" onclick="location.href='{{ url_for('signup') }}'">Get Started</button>
+            <button class="home-button secondary" onclick="location.href='{{ url_for('login') }}'">Log In</button>
+        </div>
+
+        <footer class="home-footer">
+<p class="footer-text">EcoTrack - Track. Improve. Sustain.</p>
+        </footer>
+    </div>
+</body>
+</html>
+
